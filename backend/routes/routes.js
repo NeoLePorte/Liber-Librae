@@ -1,7 +1,7 @@
-//server/routes/routes.js
+//backend/routes/routes.js
 import express from 'express'
 import Book from '../models/Book';
-var router = express.Router();
+const router = express.Router();
 
 //api route
 router.get('/', (req, res) => {
@@ -20,34 +20,54 @@ router.get('/books', (req, res) => {
 //post a new book to /books
 router.post('/books', (req, res) => {
   const book = new Book();
-  // body parser lets us use the req.body
-  const { title, author, description, ISBN } = req.body;
-  console.log(req.body);
-  if (!title || !author || !description || !ISBN) {
-    // we should throw an error. we can do this check on the front end
+  const { title, author, description, isbn } = req.body;
+  if (!title || !author || !description || !isbn) {
     return res.json({
       success: false,
-      error: 'You must provide a title, author, description, ans ISBN'
+      error: 'You must provide a title, author, description, and ISBN'
     });
   }
   //saves book
-  book.author = author;
   book.title = title;
+  book.author = author;
   book.description = description;
-  book.ISBN = ISBN;
+  book.isbn = isbn;
   book.save(err => {
     if (err) return res.json({ success: false, error: err });
     return res.json({ success: true });
   });
 });
 
+router.put('/books/:bookId', (req, res) => {
+  console.log(req.params);
+  const { bookId } = req.params;
+  if (!bookId) {
+    return res.json({ success: false, error: 'No Book id provided' });
+  }
+  Book.findById(bookId, (error, book) => {
+    if (error) return res.json({ success: false, error });
+    const { title, author, description, isbn } = req.body;
+    if (title) book.title = title;
+    if (author) book.author = author;
+    if (description) book.description = description;
+    if (isbn) book.isbn = isbn;
+    book.save(error => {
+      if (error) return res.json({ success: false, error });
+      return res.json({ success: true });
+    });
+  });
+});
 
-// router.get('/', function(req, res){
-//   res.render('index')
-// });
-
-// router.get('/about', function(req, res){
-//   res.render('about')
-// });
+// delete book
+router.delete('/books/:bookId', (req, res) => {
+  const { bookId } = req.params;
+  if (!bookId) {
+    return res.json({ success: false, error: 'No book id provided' });
+  }
+  Book.remove({ _id: bookId }, (error, book) => {
+    if (error) return res.json({ success: false, error });
+    return res.json({ success: true });
+  });
+});
 
 export default router;

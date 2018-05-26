@@ -1,4 +1,4 @@
-//user schema
+//Book schema
 import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
@@ -6,7 +6,7 @@ const BookSchema = new Schema({
   title: String,
   author: String,
   description: String,
-  ISBN: Number  
+  isbn: Number  
 });
 
 export default mongoose.model('Book', BookSchema);
