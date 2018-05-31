@@ -1,16 +1,15 @@
 import React, { Component } from 'react'
 import Form from './Form';
 import '../css/App.css'
-import BookList from './BookList'
+
+import Book from './Book'
 import {
   Button,
   Transition,
   Container,
-  Divider,
   Grid,
   Header,
   Icon,
-  Image,
   List,
   Menu,
   Responsive,
@@ -166,7 +165,11 @@ class HomepageLayout extends Component {
         description: '',
         isbn: '',
         updateId: null,
+        onDeleteBook: this.onDeleteBook.bind(this),
+        onUpdateBook: this.onUpdateBook.bind(this)
       };
+      
+      
     }
   
     componentDidMount() {
@@ -187,14 +190,14 @@ class HomepageLayout extends Component {
       if (!oldBook) return;
       this.setState({ title: oldBook.title, author: oldBook.author, description: oldBook.description, isbn: oldBook.isbn, updateId: id });
     }
-  
+    //TODO: Fix delete function to allow Transitions to work on unmount
     onDeleteBook = (id) => {
       const i = this.state.data.findIndex(c => c._id === id);
-      const data = [
+      // eslint-disable-next-line 
+      this.setState(this.state.data = [
         ...this.state.data.slice(0, i),
         ...this.state.data.slice(i + 1),
-      ];
-      this.setState({ data });
+    ]) 
       fetch(`api/books/${id}`, { method: 'DELETE' })
         .then(res => res.json()).then((res) => {
           if (!res.success) this.setState({ error: res.error });
@@ -212,6 +215,7 @@ class HomepageLayout extends Component {
       }
     }
     //Creates new Book
+    //TODO: Fix SubmitNewBook function to allow Transitions to work on mount
     submitNewBook = () => {
       const { title, author, description, isbn} = this.state;
       const data = [...this.state.data, {title, author, description, isbn, _id: Date.now().toString() }];
@@ -247,7 +251,7 @@ class HomepageLayout extends Component {
         .then((res) => {
           if (!res.success) this.setState({ error: res.error });
           else this.setState({ data: res.data });
-          console.log(this.state.data)
+
         });
     }
     render() {
@@ -258,12 +262,33 @@ class HomepageLayout extends Component {
                 <Grid.Row >
                 <Grid.Column  width={8}>
                 
-                 <BookList 
-                 data={this.state.data}
-                 handleDeleteBook={this.onDeleteBook}
-                 handleUpdateBook={this.onUpdateBook}
-                 />
-                 
+                <Transition.Group
+                as={List}
+                duration={500}
+                divided
+                size='medium'
+                verticalAlign='middle'
+                animation='fade'
+                >
+                  {this.state.data.map((book, i) => (
+                    <List.Item key={i}>
+                      <Book 
+                          title={book.title} 
+                          author={book.author} 
+                          description={book.description} 
+                          isbn={book.isbn} 
+                          key={book._id} 
+                          id={book._id}
+                      />
+                      <Button.Group>
+                        <Button primary compact  onClick={() => {this.onUpdateBook(book._id)}}>update</Button>
+                        <Button secondary compact  onClick={() => { this.onDeleteBook(book._id)}}>delete</Button>
+                      </Button.Group>
+                      </List.Item>
+                  ))};
+                  
+                </Transition.Group>
+
                 </Grid.Column >    
                 <Grid.Column  floated='right' width={6}>
 
@@ -306,13 +331,13 @@ class HomepageLayout extends Component {
             <Segment inverted vertical style={{ padding: '5em 0em' }}>
             <Container>
                 <Grid divided inverted stackable>
-                <Grid.Row>
+                <Grid.Row>  
                     <Grid.Column width={3}>
                     <Header inverted as='h4' content='About' />
                     <List link inverted>
                         <List.Item as='a'>Contact Us</List.Item>
-                        <List.Item as='a'>Religious Ceremonies</List.Item>
-                        <List.Item as='a'>Gazebo Plans</List.Item>
+                        <List.Item as='a'>pSeUDO Religious Ceremonies</List.Item>
+                        <List.Item as='a'>Deathstar Plans</List.Item>
                     </List>
                     </Grid.Column>
                     <Grid.Column width={3}>
