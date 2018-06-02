@@ -1,8 +1,9 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import Form from './Form';
-import '../css/App.css'
-import HomepageHeading from './HomepageHeading'
-import Book from './Book'
+import '../css/App.css';
+import HomepageHeading from './HomepageHeading';
+import SpeechToText from './SpeechToText';
+import Book from './Book';
 import {
   Button,
   Transition,
@@ -16,7 +17,7 @@ import {
   Segment,
   Sidebar,
   Visibility,
-} from 'semantic-ui-react'
+} from 'semantic-ui-react';
 
 /* eslint-disable react/no-multi-comp */
 
@@ -134,6 +135,7 @@ class HomepageLayout extends Component {
         description: '',
         isbn: '',
         updateId: null,
+        open: false,
         onDeleteBook: this.onDeleteBook.bind(this),
         onUpdateBook: this.onUpdateBook.bind(this)
       };
@@ -175,12 +177,14 @@ class HomepageLayout extends Component {
     //submit book handler
     submitBook = (e) => {
       e.preventDefault();
-      const { title, author, description, isbn, updateId } = this.state;
+      const {open, title, author, description, isbn, updateId } = this.state;
       if (!title || !author ||!description ||!isbn)  return;
       if (updateId) {
         this.submitUpdatedBook();
+        this.setState({open: false})
       } else {
         this.submitNewBook();
+        this.setState({open: false})
       }
     }
     //Creates new Book
@@ -267,6 +271,7 @@ class HomepageLayout extends Component {
                     description={this.state.description}
                     isbn={this.state.isbn}
                     handleChangeText={this.onChangeText}
+                    open={this.state.open}
                     submitBook={this.submitBook} />
 
                 </Grid.Column>
@@ -278,10 +283,9 @@ class HomepageLayout extends Component {
             <Grid celled='internally' columns='equal' stackable>
                 <Grid.Row textAlign='center'>
                 <Grid.Column style={{ paddingBottom: '5em', paddingTop: '5em' }}>
-                    <Header as='h3' style={{ fontSize: '2em' }}>
-                      Yah fur sure
-                    </Header>
-                    <p>you are</p>
+
+                    <SpeechToText />
+                    
                     <p style={{ fontSize: '1.33em' }}></p>
                 </Grid.Column>
                 <Grid.Column style={{ paddingBottom: '5em', paddingTop: '5em' }}>
