@@ -1,10 +1,13 @@
+
+
+
 .ui.inverted.segment, .ui.primary.inverted.segment {
-    background-image: url('https://i.pinimg.com/originals/aa/cb/9c/aacb9cbc40b3aec4bad28af91925b1ae.jpg') !important;
+    background-image: url('./Img/DigitalSunset.jpg') !important;
     background-repeat: no-repeat !important;
     /* background-attachment: fixed !important; */
     background-position: center !important;
 }
 
-/* .ui.secondary.inverted.pointing.menu .active.item {
+.ui.secondary.inverted.pointing.menu .active.item {
     color: limegreen !important;
-} */
+}

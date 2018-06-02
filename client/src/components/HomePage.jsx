@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Form from './Form';
 import '../css/App.css'
-
+import HomepageHeading from './HomepageHeading'
 import Book from './Book'
 import {
   Button,
@@ -20,39 +20,8 @@ import {
 
 /* eslint-disable react/no-multi-comp */
 
-// Heading
-const HomepageHeading = ({ mobile }) => (   
-  <Container text>
-    <Header
-      className='title-heading'
-      as='h1'
-      content='Liber LibrÆ'
-      inverted
-      style={{
-        fontSize: mobile ? '2em' : '4em',
-        fontWeight: 'normal',
-        marginBottom: 0,
-        marginTop: mobile ? '1.5em' : '4em',
-        color: 'ivory'
-      }}
-    />
-    <Header
-      as='h2'
-      content=' Learn first --- Oh thou who aspirest unto our ancient Order!'  
-      style={{
-        color:'seagreen',
-        fontSize: mobile ? '1.5em' : '1.9em',
-        fontWeight: 'normal',
-        marginTop: mobile ? '0.5em' : '1.5em',
-        paddingTop: '0.5em'
-      }}
-    />
-    <Button color='teal' inverted size='huge'>
-      Get Started
-      <Icon name='right arrow' />
-    </Button>
-  </Container>
-)
+
+
 // Desktop view
 class DesktopContainer extends Component {
   state = {}
@@ -190,7 +159,7 @@ class HomepageLayout extends Component {
       if (!oldBook) return;
       this.setState({ title: oldBook.title, author: oldBook.author, description: oldBook.description, isbn: oldBook.isbn, updateId: id });
     }
-    //TODO: Fix delete function to allow Transitions to work on unmount
+    
     onDeleteBook = (id) => {
       const i = this.state.data.findIndex(c => c._id === id);
       // eslint-disable-next-line 
@@ -215,7 +184,6 @@ class HomepageLayout extends Component {
       }
     }
     //Creates new Book
-    //TODO: Fix SubmitNewBook function to allow Transitions to work on mount
     submitNewBook = () => {
       const { title, author, description, isbn} = this.state;
       const data = [...this.state.data, {title, author, description, isbn, _id: Date.now().toString() }];
@@ -244,6 +212,7 @@ class HomepageLayout extends Component {
         this.loadBooksFromServer();
       });
     }
+
   //gets all Books
     loadBooksFromServer = () => {
       fetch('/api/books/')
@@ -300,11 +269,6 @@ class HomepageLayout extends Component {
                     handleChangeText={this.onChangeText}
                     submitBook={this.submitBook} />
 
-                </Grid.Column>
-                </Grid.Row>
-                <Grid.Row>
-                <Grid.Column  textAlign='center'>
-                    <Button  size='huge'>Button!</Button>
                 </Grid.Column>
                 </Grid.Row>
             </Grid>
