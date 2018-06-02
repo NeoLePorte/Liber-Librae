@@ -1,4 +1,18 @@
 
+.about-text {
+    flex: 1 0 auto !important;
+    margin-bottom: 55vh;
+}
+
+body {
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100vh !important; /* Avoid the IE 10-11 `min-height` bug. */
+  }
+
+.footer {
+    flex-shrink: 0 !important;
+}
 
 
 .ui.inverted.segment, .ui.primary.inverted.segment {

@@ -4,15 +4,16 @@ import { Button, Form, Confirm } from 'semantic-ui-react'
 class FormComp extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { open: props.open }
+    this.state = { open: false }
   }
+
   open = () => this.setState({ open: true })
   close = () => this.setState({ open: false })
+  
 
   render() {
     return (
-        <Form onConfirm={this.state.close}>
-
+        <Form>
         <Form.Field required>
         <label>Title</label>
         <input
@@ -56,11 +57,9 @@ class FormComp extends React.Component {
           onChange={this.props.handleChangeText}
         />
         </Form.Field>
-        <div>
           {/* TODO: Fix Confirmation prompt to work right with submit button */}
         <Button onClick={this.open}>Submit</Button>
         <Confirm open={this.state.open} onCancel={this.close} onConfirm={this.props.submitBook} />
-        </div>
       </Form>
     );
   }
