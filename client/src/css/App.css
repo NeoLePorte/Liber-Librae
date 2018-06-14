@@ -1,17 +1,36 @@
 
-.about-text {
+/* .about-text {
     flex: 1 0 auto !important;
     margin-bottom: 55vh;
+} */
+.visible.transition {
+    display: flex !important;
+}
+.App {
+    display: flex;
+    min-height: 75vh;
+    flex-direction: column;
 }
 
-body {
-    display: flex !important;
-    flex-direction: column !important;
-    height: 100vh !important; /* Avoid the IE 10-11 `min-height` bug. */
-  }
 
+
+.ui.menu .active.item{
+    color: rgba(0, 238, 0, 0.993) !important;
+}
+
+.list-container {
+    overflow-y: 'scroll' !important;
+    height: '400px' !important;
+}
 .footer {
     flex-shrink: 0 !important;
+}
+
+.ui.compact.primary.button {
+    background: rebeccapurple;
+}
+.ui.compact.secondary.button {
+    background: rgb(255, 21, 72);
 }
 
 

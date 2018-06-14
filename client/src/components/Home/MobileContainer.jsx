@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+// eslint-disable-next-line 
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import {withRouter} from 'react-router';
 import {
   Button,
   Container,
@@ -29,11 +32,11 @@ class MobileContainer extends Component {
       <Responsive {...Responsive.onlyMobile}>
         <Sidebar.Pushable>
           <Sidebar as={Menu} animation='uncover' inverted vertical visible={sidebarOpened}>
-            <Menu.Item as='a' active>Home</Menu.Item>
-            <Menu.Item as='a'>About</Menu.Item>
-            <Menu.Item as='a'>Contact</Menu.Item>
-            <Menu.Item as='a'>Log in</Menu.Item>
-            <Menu.Item as='a'>Sign Up</Menu.Item>
+          <Menu.Item as={Link} to="/" active>Home</Menu.Item>
+          <Menu.Item as={Link} to="/about">About</Menu.Item>
+          <Menu.Item as={Link} to="/contact">Contact</Menu.Item>
+          <Menu.Item as={Link} to="/about">Login</Menu.Item>
+          <Menu.Item as={Link} to="/contact">Signup</Menu.Item>
           </Sidebar>
 
           <Sidebar.Pusher dimmed={sidebarOpened} onClick={this.handlePusherClick} style={{ minHeight: '100vh' }}>
@@ -60,4 +63,4 @@ class MobileContainer extends Component {
   }
 }
 
-export default MobileContainer;
+export default withRouter(MobileContainer);

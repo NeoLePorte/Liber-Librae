@@ -35,10 +35,10 @@ const HomepageHeading = ({ mobile }) => (
           paddingTop: '0.5em'
         }}
       />
-      <Button color='teal' inverted size='huge'>
+      {/* <Button color='teal' inverted size='huge'>
         Get Started
         <Icon name='right arrow' />
-      </Button>
+      </Button> */}
     </Container>
   )
 

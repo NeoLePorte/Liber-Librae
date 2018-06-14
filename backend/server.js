@@ -20,25 +20,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(logger('dev'));
 
-
-  // enable rate-limiting
-  
-  // app.enable('trust proxy'); // required to work properly behind Bluemix's reverse proxy
-
-  // const limiter = new RateLimit({
-  //   windowMs: 15 * 60 * 1000, // 15 minutes
-  //   max: 100, // limit each IP to 100 requests per windowMs
-  //   delayMs: 0 // disable delaying - full speed until the max limit is reached
-  // });
-
-  // //  apply to /api/*
-  // app.use('/api/', limiter);
-
-  // // force https - microphone access requires https in Chrome and possibly other browsers
-  // // (*.mybluemix.net domains all have built-in https support)
-  // const secure = require('express-secure-only');
-  // app.use(secure());
-
 app.use(cors())
 
 // token endpoints

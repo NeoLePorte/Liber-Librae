@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Form, Confirm } from 'semantic-ui-react'
+import { Button, Form, Confirm, Segment } from 'semantic-ui-react'
 
 class FormComp extends React.Component {
   constructor(props) {
@@ -13,7 +13,9 @@ class FormComp extends React.Component {
 
   render() {
     return (
-        <Form>
+        <Form onSubmit={this.props.submitBook}>
+        <Confirm open={this.state.open} onCancel={this.close} onConfirm={this.props.submitBook} />
+        <Segment>
         <Form.Field required>
         <label>Title</label>
         <input
@@ -24,7 +26,7 @@ class FormComp extends React.Component {
           onChange={this.props.handleChangeText}
         />
         </Form.Field>
-    
+      
         <Form.Field required>
         <label>Author</label>
         <Form.Input
@@ -58,8 +60,9 @@ class FormComp extends React.Component {
         />
         </Form.Field>
           {/* TODO: Fix Confirmation prompt to work right with submit button */}
-        <Button onClick={this.open}>Submit</Button>
-        <Confirm open={this.state.open} onCancel={this.close} onConfirm={this.props.submitBook} />
+        <Button style={{background: 'rebeccapurple', color: 'white'}}>Submit</Button>
+        
+        </Segment>
       </Form>
     );
   }

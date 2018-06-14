@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import GifImages from './GifImages'
 import recognizeMic from 'watson-speech/speech-to-text/recognize-microphone';
-import { Container } from 'semantic-ui-react'
+import { Container, Button, Segment } from 'semantic-ui-react'
 
 
 
@@ -37,11 +37,15 @@ class SpeechToText extends Component {
   render() {
     return (
       <React.Fragment>
-        <div>{this.state.text}</div>
-        <div onClick={this.onListenClick.bind(this)}>Press to Start</div>
+        <Segment
+        textAlign='center'
+        vertical
+        >
+        <Button style={{background: 'orangered'}} primary onClick={this.onListenClick.bind(this)}>Press to Start</Button>
         <Container textAlign="center">
           <GifImages phrase={this.state.text} />
         </Container>
+        </Segment>
       </React.Fragment>
     );
   }

@@ -10,7 +10,7 @@ import {
   
 const Footer = () => (
 
-    <Segment className='footer' inverted vertical style={{ padding: '5em 0em' }}>
+    <Segment className='footer' stacked inverted vertical style={{ padding: '5em 0em' }}>
         <Container>
             <Grid divided inverted stackable>
             <Grid.Row>  

@@ -37,9 +37,13 @@ class HomepageLayout extends Component {
         updateId: null,
       };
     }
-  
+  //TODO: fix this anti-pattern hack to close the fetch after component unmounts...maybe
     componentDidMount() {
       this.loadBooksFromServer();
+    }
+
+    componentWillUnmount() {
+      
     }
 
   // CRUD functions/Event Handlers//
@@ -122,13 +126,12 @@ class HomepageLayout extends Component {
 
     render() {
         return (
-          <React.Fragment>
           <ResponsiveContainer>
-            <Segment style={{ padding: '8em 0em' }} vertical>
+            <Segment className='list-container' style={{ padding: '8em 0em' }} vertical>
             <Grid  container stackable verticalAlign='middle'>
                 <Grid.Row >
                 <Grid.Column  width={8}>
-                
+                <div style={{ overflowY: 'scroll', height: '400px'}}>
                 <Transition.Group
                 as={List}
                 duration={500}
@@ -153,10 +156,10 @@ class HomepageLayout extends Component {
                       </Button.Group>
                       </List.Item>
                   ))};
-                  
                 </Transition.Group>
+                </div>
+                </Grid.Column >
 
-                </Grid.Column >    
                 <Grid.Column  floated='right' width={6}>
 
                     <Form
@@ -178,8 +181,6 @@ class HomepageLayout extends Component {
                 <Grid.Column style={{ paddingBottom: '5em', paddingTop: '5em' }}>
 
                     <SpeechToText />
-                    
-                    <p style={{ fontSize: '1.33em' }}></p>
                 </Grid.Column>
                 <Grid.Column style={{ paddingBottom: '5em', paddingTop: '5em' }}>
                     <Header as='h3' style={{ fontSize: '2em' }}>I dunno</Header>
@@ -189,7 +190,6 @@ class HomepageLayout extends Component {
             </Grid>
             </Segment>
             </ResponsiveContainer>
-            </React.Fragment>
         )
     }
 }

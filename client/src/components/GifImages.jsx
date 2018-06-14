@@ -1,7 +1,7 @@
 import React from 'react';
 import GphApiClient from 'giphy-js-sdk-core';
 import Config from '../Config.js';
-import { Card, Icon, Image } from 'semantic-ui-react';
+import { Image, Header } from 'semantic-ui-react';
 
 
 class GifImages extends React.Component {
@@ -34,7 +34,6 @@ class GifImages extends React.Component {
             });
           }
         )
-        console.log(this.state.phrase)
     }
   }
     render() {
@@ -42,7 +41,7 @@ class GifImages extends React.Component {
       if (error) {
         return <div>Error: {error.message}</div>;
       } else if (this.state.phrase === undefined) {
-        return <div>Press Start</div>;
+        return <div>Waiting for Speech</div>;
       } else if (isWaiting) {
         return <div className='waiting'>Waiting...</div>;
       } else if (!isLoaded) {
@@ -50,28 +49,18 @@ class GifImages extends React.Component {
       } 
         return (
 
-          <Card>
-          <Image src={Gifs.images.downsized.gif_url} alt={Gifs.title} />
-          <Card.Content>
-            <Card.Header>
-              Speak in Gifs!
-            </Card.Header>
-            <Card.Meta>
-              <span className='date'>
-                Joined in 2015
-              </span>
-            </Card.Meta>
-            <Card.Description>
-              { phrase }
-            </Card.Description>
-          </Card.Content>
-          <Card.Content extra>
-            <a>
-              <Icon name='user' />
-              22 Friends
-            </a>
-          </Card.Content>
-        </Card>
+          <React.Fragment>
+            <Header> { phrase }</Header>
+            <Image 
+            src={Gifs.images.downsized.gif_url} 
+            alt={Gifs.title}
+            centered
+            verticalAlign='middle'
+            bordered
+            size='large'
+            />
+          </React.Fragment>
+     
         );
       }
     }

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import HomepageHeading from './HomepageHeading';
 // eslint-disable-next-line 
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, NavLink, Link, } from "react-router-dom";
+import {withRouter} from 'react-router';
 import {
   Button,
   Container,
@@ -13,20 +14,33 @@ import {
 
 // Desktop view
 class DesktopContainer extends Component {
-    state = {}
+  constructor(props) {
+    super(props)
+    this.state = {}
+  }
   
+  componentDidMount() {
+    this.HeaderToggle();
+  }
     hideFixedMenu = () => this.setState({ fixed: false })
     showFixedMenu = () => this.setState({ fixed: true })
+    HeaderToggle = () => this.props.location.pathname === '/' ? this.setState({ HeaderSmall: false }) : this.setState({ HeaderSmall: true })
     
+
     render() {
-      const { children } = this.props
-      const { fixed } = this.state
-  
+      const { children } = this.props;
+      const { fixed, HeaderSmall} = this.state;
+      
       return (
         // <Responsive minWidth="767" > {...Responsive.onlyComputer} Responsive.onlyComputer needs work to fit all devices.
         <Responsive minWidth="767" > 
           <Visibility once={false} onBottomPassed={this.showFixedMenu} onBottomPassedReverse={this.hideFixedMenu}>
-            <Segment inverted textAlign='center' style={{ minHeight: 700, padding: '1em 0em' }} vertical>
+            <Segment 
+            inverted 
+            textAlign='center' 
+            style={HeaderSmall ? { maxHeight:100, padding: '1em 0em'} : { minHeight: 700, padding: '1em 0em' }} 
+            vertical
+            >
               <Menu
                 fixed={fixed ? 'top' : null}
                 inverted={!fixed}
@@ -35,16 +49,30 @@ class DesktopContainer extends Component {
                 size='large'
               >
                 <Container className="main-menu-links">
-                  <Menu.Item as={Link} to="/" active>Home</Menu.Item>
-                  <Menu.Item as={Link} to="/about">About</Menu.Item>
-                  <Menu.Item as={Link} to="/contact">Contact</Menu.Item>
+                
+                  <Menu.Item 
+                  as={NavLink}
+                  exact
+                  to="/"
+                  content="Home"
+                  />
+                  <Menu.Item 
+                  as={NavLink} 
+                  to="/about"
+                  content="About"/>
+
+                  <Menu.Item 
+                  as={NavLink} 
+                  to="/contact"
+                  content="Contact"/>
+
                   <Menu.Item position='right'>
-                    <Button as={Link} to="/login" inverted={!fixed}>Log in</Button>
-                    <Button as={Link} to="/signup" inverted={!fixed} primary={fixed} style={{ marginLeft: '0.5em' }}>Sign Up</Button>
+                    <Button as={Link} to="/login" primary={fixed} style={{background: 'rgb(255, 21, 72)'}} inverted={!fixed}>Log in</Button>
+                    <Button as={Link} to="/signup" inverted={!fixed} primary={fixed}  style={{ marginLeft: '0.5em', background: 'rebeccapurple' }}>Sign Up</Button>
                   </Menu.Item>
                 </Container>
               </Menu>
-              <HomepageHeading />
+              {!HeaderSmall ? <HomepageHeading /> : null}
             </Segment>
           </Visibility>
           {children}
@@ -52,4 +80,4 @@ class DesktopContainer extends Component {
       )
     }
   }
-  export default DesktopContainer;
+  export default withRouter(DesktopContainer);
