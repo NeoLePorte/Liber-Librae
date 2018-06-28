@@ -31,8 +31,7 @@ var sttAuthService = new AuthorizationV1(
     {
       username: Config.USER_NAME, // or hard-code credentials here
       password: Config.PASSWORD
-    },
-    vcapServices.getCredentials('speech_to_text') // pulls credentials from environment in bluemix, otherwise returns {}
+    }
   )
 );
 

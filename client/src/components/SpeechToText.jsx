@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import GifImages from './GifImages'
 import recognizeMic from 'watson-speech/speech-to-text/recognize-microphone';
-import { Container, Button, Segment } from 'semantic-ui-react'
+import { Transition, Button, Segment, Grid } from 'semantic-ui-react'
 
 
 
@@ -9,6 +9,7 @@ class SpeechToText extends Component {
   constructor() {
     super()
     this.state = {}
+    this.onListenClick = this.onListenClick.bind(this)
   }
   onListenClick() {
     fetch('http://localhost:3001/api/speech-to-text/token')
@@ -19,7 +20,7 @@ class SpeechToText extends Component {
             token: token,
             objectMode: true, // send objects instead of text
             extractResults: true, // convert {results: [{alternatives:[...]}], result_index: 0} to {alternatives: [...], index: 0}
-            format: false // optional - performs basic formatting on the results such as capitals an periods
+            format: true // optional - performs basic formatting on the results such as capitals an periods
         });
         stream.on('data', (data) => {
           this.setState({
@@ -41,10 +42,19 @@ class SpeechToText extends Component {
         textAlign='center'
         vertical
         >
-        <Button style={{background: 'orangered'}} primary onClick={this.onListenClick.bind(this)}>Press to Start</Button>
-        <Container textAlign="center">
-          <GifImages phrase={this.state.text} />
-        </Container>
+        <Button style={{background: 'orangered', marginBottom: '2em'}} primary onClick={this.onListenClick}>Press to Start</Button>
+        <Transition.Group
+          as={Grid}
+          duration={400}
+          divided
+          size='small'
+          animation='fade'
+          textAlign='center'
+          >
+          
+            <GifImages phrase={this.state.text} />
+            
+        </Transition.Group>
         </Segment>
       </React.Fragment>
     );

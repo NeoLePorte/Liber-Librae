@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
 import Form from '../Form';
 import SpeechToText from '../SpeechToText';
-import Book from '../Book';
+import BookList from '../BookList';
 import DesktopContainer from './DesktopContainer';
 import MobileContainer from './MobileContainer';
 
 import '../../css/App.css';
 import {
-  Button,
-  Transition,
   Grid,
   Header,
-  List,
   Segment,
 } from 'semantic-ui-react';
 
@@ -127,68 +124,29 @@ class HomepageLayout extends Component {
     render() {
         return (
           <ResponsiveContainer>
-            <Segment className='list-container' style={{ padding: '8em 0em' }} vertical>
-            <Grid  container stackable verticalAlign='middle'>
+            <Segment className='list-container' style={{ padding: '8em 0em' }} vertical style={{ overflowY: 'scroll', height: '80vh'}}>
+            <Grid celled='internally' columns='equal' stackable>
                 <Grid.Row >
                 <Grid.Column  width={8}>
-                <div style={{ overflowY: 'scroll', height: '400px'}}>
-                <Transition.Group
-                as={List}
-                duration={500}
-                divided
-                size='medium'
-                verticalAlign='middle'
-                animation='fade'
-                >
-                  {this.state.data.map((book, i) => (
-                    <List.Item key={i}>
-                      <Book 
-                          title={book.title} 
-                          author={book.author} 
-                          description={book.description} 
-                          isbn={book.isbn} 
-                          key={book._id} 
-                          id={book._id}
-                      />
-                      <Button.Group>
-                        <Button primary compact  onClick={() => {this.onUpdateBook(book._id)}}>update</Button>
-                        <Button secondary compact  onClick={() => { this.onDeleteBook(book._id)}}>delete</Button>
-                      </Button.Group>
-                      </List.Item>
-                  ))};
-                </Transition.Group>
-                </div>
+                {/* <SpeechToText /> */}
+                <BookList 
+                {...this.state}
+                onUpdateBook={this.onUpdateBook}
+                onDeleteBook={this.onDeleteBook}
+                />
                 </Grid.Column >
-
-                <Grid.Column  floated='right' width={6}>
-
-                    <Form
-                    title={this.state.title}
-                    author={this.state.author}
-                    description={this.state.description}
-                    isbn={this.state.isbn}
-                    handleChangeText={this.onChangeText}
-                    submitBook={this.submitBook} />
-
-                </Grid.Column>
+              <Grid.Column width={8}>
+                <Form 
+                {...this.state}
+                handleChangeText={this.onChangeText}
+                submitBook={this.submitBook}
+                />
+              </Grid.Column>
                 </Grid.Row>
             </Grid>
             </Segment>
             {/* Sub-Body */}
-            <Segment style={{ padding: '0em' }} vertical>
-            <Grid celled='internally' columns='equal' stackable>
-                <Grid.Row textAlign='center'>
-                <Grid.Column style={{ paddingBottom: '5em', paddingTop: '5em' }}>
-
-                    <SpeechToText />
-                </Grid.Column>
-                <Grid.Column style={{ paddingBottom: '5em', paddingTop: '5em' }}>
-                    <Header as='h3' style={{ fontSize: '2em' }}>I dunno</Header>
-                   <p>Im not</p>
-                </Grid.Column>
-                </Grid.Row>
-            </Grid>
-            </Segment>
+            
             </ResponsiveContainer>
         )
     }

@@ -14,7 +14,7 @@ class FormComp extends React.Component {
   render() {
     return (
         <Form onSubmit={this.props.submitBook}>
-        <Confirm open={this.state.open} onCancel={this.close} onConfirm={this.props.submitBook} />
+        {/* <Confirm open={this.state.open} onCancel={this.close} onConfirm={this.props.submitBook} /> */}
         <Segment>
         <Form.Field required>
         <label>Title</label>
@@ -60,7 +60,7 @@ class FormComp extends React.Component {
         />
         </Form.Field>
           {/* TODO: Fix Confirmation prompt to work right with submit button */}
-        <Button style={{background: 'rebeccapurple', color: 'white'}}>Submit</Button>
+        <Button  style={{background: 'rebeccapurple', color: 'white'}}>Submit</Button>
         
         </Segment>
       </Form>

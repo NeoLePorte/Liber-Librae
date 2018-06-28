@@ -15,7 +15,7 @@ const LoginForm = () => (
   <div className='login-form'>
     <Grid textAlign='center' style={{ height: '100%', paddingTop: '10em' }} verticalAlign='middle'>
       <Grid.Column style={{ maxWidth: 450 }}>
-        <Header as='h2' color='purple' textAlign='center'>
+        <Header as='h2' color='smoke' textAlign='center'>
            Log-in to your account
         </Header>
         <Form size='large'>

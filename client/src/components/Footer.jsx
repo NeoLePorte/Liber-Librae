@@ -22,12 +22,6 @@ const Footer = () => (
                     <List.Item as='a'>Deathstar Plans</List.Item>
                 </List>
                 </Grid.Column>
-                <Grid.Column width={3}>
-                <Header inverted as='h4' content='Services' />
-                <List link inverted>
-                    
-                </List>
-                </Grid.Column>
                 <Grid.Column width={7}>
                 <Header as='h4' inverted>Footer Header</Header>
                 <p>Blahrg</p>
