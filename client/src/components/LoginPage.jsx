@@ -1,7 +1,7 @@
 import React from 'react'
 import DesktopContainer from './Home/DesktopContainer.jsx'
 import MobileContainer from './Home/MobileContainer.jsx'
-import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
+import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
 
 const ResponsiveContainer = ({ children }) => (
     <div>
@@ -35,7 +35,7 @@ const LoginForm = () => (
           </Segment>
         </Form>
         <Message>
-          New to us? <a href='#'>Sign Up</a>
+          New to us? <a>Sign Up</a>
         </Message>
       </Grid.Column>
     </Grid>

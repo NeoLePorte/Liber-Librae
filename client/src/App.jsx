@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import '../css/App.css';
-import HomePage from './Home/HomePage';
-import Footer from './Footer';
-import LoginPage from './LoginPage';
-import About from './About/About';
-import Contact from './Contact/Contact';
+import './css/App.css';
+import HomePage from './components/Home/HomePage';
+import Footer from './components/Footer';
+import LoginPage from './components/LoginPage';
+import About from './components/About/About';
+import Contact from './components/Contact/Contact';
 // import SignupPage from './SignupPage';
 // import LoginPage from './LoginPage';
 import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
-import { TransitionGroup } from 'semantic-ui-react';
 import { Animated } from "react-animated-css";
 
 class App extends Component {
@@ -35,4 +34,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default  App;

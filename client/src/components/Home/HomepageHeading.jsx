@@ -1,11 +1,9 @@
 import React from 'react';
 import '../../css/App.css';
 import {
-  Button,
   Container,
   Header,
-  Icon,
-} from 'semantic-ui-react'
+} from 'semantic-ui-react/dist/commonjs'
 
 
 

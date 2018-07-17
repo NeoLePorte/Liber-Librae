@@ -1,72 +1,116 @@
 import React from 'react'
-import { Button, Form, Confirm, Segment } from 'semantic-ui-react'
+import { connect } from 'react-redux'
+import { Field, reduxForm, Form as rForm} from 'redux-form';
+import { fetchBooks, createBook, submitUpdate } from '../actions/BookActions'
+import { Button, Form, Segment } from 'semantic-ui-react'
+
+
 
 class FormComp extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { open: false }
+  }
+  // TODO: make this work so the component lifecycle is used properly
+  componentDidUpdate(prevProps) {
+    if (this.props.books.items.filter !== prevProps.books.items.filter) {
+      console.log('this is filtering prevProps!')
+      this.props.fetchBooks()
+    }
   }
 
-  open = () => this.setState({ open: true })
-  close = () => this.setState({ open: false })
-  
+  //submit book handler
+  submitBook = (data) => {
+    const {title, author, description, isbn, updateId } = data;
+    if (!title || !author ||!description ||!isbn)  return;
+    if (updateId) {
+      this.updateBook(data);
+    } else {
+      this.postBook(data);
+    }
+    this.props.fetchBooks()
+  }
+
+  updateBook = (data) => {
+    const { reset } = this.props;
+    this.props.submitUpdate(data);
+    reset();
+}
+
+  postBook = (data) => {
+    const { reset } = this.props;
+    this.props.createBook(data);
+    reset();
+}
 
   render() {
+    const { handleSubmit, pristine, submitting } = this.props;
     return (
-        <Form onSubmit={this.props.submitBook}>
-        {/* <Confirm open={this.state.open} onCancel={this.close} onConfirm={this.props.submitBook} /> */}
+        <Form as={rForm} onSubmit={handleSubmit(data => this.submitBook(data))}>
         <Segment>
         <Form.Field required>
         <label>Title</label>
-        <input
-          type="text"
-          name="title"
-          placeholder="Title of Book"
-          value={this.props.title}
-          onChange={this.props.handleChangeText}
+        <Field
+        component="input"
+        type="text"
+        name="title"
+        placeholder="Title of Book"
         />
         </Form.Field>
       
         <Form.Field required>
         <label>Author</label>
-        <Form.Input
-          type="text"
-          name="author"
-          placeholder="Author of the Book"
-          value={this.props.author}
-          onChange={this.props.handleChangeText}
+        <Field
+        component="input"
+        type="text"
+        name="author"
+        placeholder="Author of the Book"
         />
         </Form.Field>
     
         <Form.Field required>
         <label>Description</label>
-        <Form.TextArea
-          type="text"
-          name="description"
-          placeholder="Description"
-          value={this.props.description}
-          onChange={this.props.handleChangeText}
+        <Field
+        component="textarea"
+        type="text"
+        name="description"
+        placeholder="Description"
         />
         </Form.Field>
         
         <Form.Field required>
         <label>ISBN</label>    
-        <Form.Input
-          type="number"
-          name="isbn"
-          placeholder="123456789"
-          value={this.props.isbn}
-          onChange={this.props.handleChangeText}
+        <Field
+        component="input"
+        type="number"
+        name="isbn"
+        placeholder="123456789"
         />
         </Form.Field>
           {/* TODO: Fix Confirmation prompt to work right with submit button */}
-        <Button  style={{background: 'rebeccapurple', color: 'white'}}>Submit</Button>
+        <Button disabled={pristine || submitting}  style={{background: 'rebeccapurple', color: 'white'}}>Submit</Button>
         
         </Segment>
       </Form>
     );
   }
 }
-  
 
-export default FormComp
+const mapStateToProps = state => ({
+  ...state
+ })
+ 
+ const mapDispatchToProps = dispatch => ({
+  fetchBooks: () => dispatch(fetchBooks()),
+  createBook: (data) => dispatch(createBook(data)),
+  submitUpdate: (data) => dispatch(submitUpdate(data))
+ })
+
+FormComp = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(FormComp);
+
+  
+ export default reduxForm({
+  form: 'book', // a unique identifier for this form
+})(FormComp); 

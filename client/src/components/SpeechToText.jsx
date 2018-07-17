@@ -10,7 +10,12 @@ class SpeechToText extends Component {
     super()
     this.state = {}
     this.onListenClick = this.onListenClick.bind(this)
+    this.SimpleAction = this.SimpleAction.bind(this)
   }
+
+  SimpleAction = (event) => {
+    this.props.SimpleAction();
+   }
   onListenClick() {
     fetch('http://localhost:3001/api/speech-to-text/token')
       .then(function(response) {
@@ -20,7 +25,7 @@ class SpeechToText extends Component {
             token: token,
             objectMode: true, // send objects instead of text
             extractResults: true, // convert {results: [{alternatives:[...]}], result_index: 0} to {alternatives: [...], index: 0}
-            format: true // optional - performs basic formatting on the results such as capitals an periods
+            format: false // optional - performs basic formatting on the results such as capitals an periods
         });
         stream.on('data', (data) => {
           this.setState({
@@ -42,7 +47,12 @@ class SpeechToText extends Component {
         textAlign='center'
         vertical
         >
-        <Button style={{background: 'orangered', marginBottom: '2em'}} primary onClick={this.onListenClick}>Press to Start</Button>
+        <Button 
+        style={{background: 'orangered', marginBottom: '2em'}} 
+        primary 
+        onClick={this.SimpleAction}>Press to Start
+        </Button>
+        
         <Transition.Group
           as={Grid}
           duration={400}
@@ -51,9 +61,7 @@ class SpeechToText extends Component {
           animation='fade'
           textAlign='center'
           >
-          
             <GifImages phrase={this.state.text} />
-            
         </Transition.Group>
         </Segment>
       </React.Fragment>

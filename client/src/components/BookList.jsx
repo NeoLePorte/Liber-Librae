@@ -1,8 +1,20 @@
 import React from 'react';
 import Book from './Book';
+import { connect } from 'react-redux'
+import { fetchBooks, deleteBook, updateBook } from '../actions/BookActions'
+import propTypes from 'prop-types'
 import { Button,Transition, List, Header, Divider } from 'semantic-ui-react';
 
+
 class BookList extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+
+  componentWillMount() {
+    this.props.fetchBooks();
+  }
+ 
     render() {
     return (
       <React.Fragment>
@@ -16,7 +28,8 @@ class BookList extends React.Component {
           verticalAlign='middle'
           animation='fade'
           >
-            {this.props.data.map((book, i) => (
+          
+            {this.props.books.items.map((book, i) => (
               <List.Item key={i}>
                 <Book 
                   title={book.title} 
@@ -28,8 +41,8 @@ class BookList extends React.Component {
                 />
                 <br></br>
                 <Button.Group>
-                  <Button primary compact  onClick={() => {this.props.onUpdateBook(book._id)}}>update</Button>
-                  <Button secondary compact  onClick={() => {this.props.onDeleteBook(book._id)}}>delete</Button>
+                  <Button primary compact  onClick={() => {this.props.updateBook(book)}}>update</Button>
+                  <Button secondary compact  onClick={() => {this.props.deleteBook(book._id)}}>delete</Button>
                 </Button.Group>
                 </List.Item>
             ))};
@@ -41,4 +54,23 @@ class BookList extends React.Component {
   }
 };
 
-export default BookList;  
+const mapStateToProps = state => ({
+  ...state
+ })
+ 
+ const mapDispatchToProps = dispatch => ({
+  fetchBooks: () => dispatch(fetchBooks()),
+  deleteBook: (id) => dispatch(deleteBook(id)),
+  updateBook: (book) => dispatch(updateBook(book))
+ })
+
+BookList.propTypes = {
+  fetchBooks: propTypes.func.isRequired,
+  deleteBook: propTypes.func.isRequired,
+  updateBook: propTypes.func.isRequired,
+  books: propTypes.object.isRequired
+}
+
+
+
+export default connect (mapStateToProps, mapDispatchToProps) (BookList);  
