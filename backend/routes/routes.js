@@ -67,7 +67,7 @@ router.delete('/books/:bookId', (req, res) => {
   if (!bookId) {
     return res.json({ success: false, error: 'No book id provided' });
   }
-  Book.remove({ _id: bookId }, (error, book) => {
+  Book.remove({ _id: bookId }, (error) => {
     if (error) return res.json({ success: false, error });
     return res.json({ success: true });
   });

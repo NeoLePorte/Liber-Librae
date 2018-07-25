@@ -9,6 +9,8 @@ import {
   Segment,
 } from 'semantic-ui-react';
 
+
+//ResponsiveContainer switches between mobile and desktop view depending on screen size.
 /* eslint-disable react/no-multi-comp */
 const ResponsiveContainer = ({ children }) => (
   <div>
@@ -26,6 +28,7 @@ class HomepageLayout extends Component {
                   <Grid.Column  width={8}>
                   <Form />
                   </Grid.Column >
+                  
                   <Grid.Column width={8}>
                   <BookList style={{overflowY: 'scroll' }} />
                   </Grid.Column>

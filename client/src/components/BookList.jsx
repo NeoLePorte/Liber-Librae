@@ -55,10 +55,12 @@ class BookList extends React.Component {
   }
 };
 
+//maps redux store to compnents props
 const mapStateToProps = state => ({
   ...state
  })
  
+ //maps actions to components props
  const mapDispatchToProps = dispatch => ({
   fetchBooks: () => dispatch(fetchBooks()),
   deleteBook: (id) => dispatch(deleteBook(id)),
@@ -71,7 +73,6 @@ BookList.propTypes = {
   updateBook: propTypes.func.isRequired,
   books: propTypes.object.isRequired
 }
-
 
 
 export default connect (mapStateToProps, mapDispatchToProps) (BookList);  

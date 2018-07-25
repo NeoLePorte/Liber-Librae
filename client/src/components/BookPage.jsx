@@ -9,8 +9,9 @@ import {
   } from 'semantic-ui-react';
 
   class BookPage extends Component {
-    //TODO: Fix this hacky bullcrap. Redux should persist state through local storage.should not fetch again.
+    //TODO: Fix this hacky mess. Redux should probably persist state through local storage.should not fetch again.
      componentDidMount() {
+      this.props.fetchBooks()
       this.props.getSingleBook(this.props.match.params.title)
     }
 
@@ -34,15 +35,18 @@ import {
         );
     }
  }
- const mapStateToProps = state => ({
-    ...state
-   })
 
-   const mapDispatchToProps = dispatch => ({
-    fetchBooks: () => dispatch(fetchBooks()),
-    deleteBook: (id) => dispatch(deleteBook(id)),
-    updateBook: (book) => dispatch(updateBook(book)),
-    getSingleBook: (id) => dispatch(getSingleBook(id))
-   })
+ //maps redux state to component props
+const mapStateToProps = state => ({
+  ...state
+  })
+
+//maps actions to component props
+const mapDispatchToProps = dispatch => ({
+fetchBooks: () => dispatch(fetchBooks()),
+deleteBook: (id) => dispatch(deleteBook(id)),
+updateBook: (book) => dispatch(updateBook(book)),
+getSingleBook: (id) => dispatch(getSingleBook(id))
+})
  
  export default connect (mapStateToProps, mapDispatchToProps) (BookPage);  

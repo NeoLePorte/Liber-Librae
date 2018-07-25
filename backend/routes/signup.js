@@ -1,4 +1,4 @@
-
+//signup route not finished.
 import User from '../models/User';
 
 module.exports = (app) => {
@@ -58,5 +58,5 @@ module.exports = (app) => {
         });
       });
     });
-  }); // end of sign up endpoint
+  });
 };

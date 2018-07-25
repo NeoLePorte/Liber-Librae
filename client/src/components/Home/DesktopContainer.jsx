@@ -20,11 +20,12 @@ class DesktopContainer extends Component {
   }
   
   componentDidMount() {
-    this.HeaderToggle();
+    this.headerToggle();
   }
+
     hideFixedMenu = () => this.setState({ fixed: false })
     showFixedMenu = () => this.setState({ fixed: true })
-    HeaderToggle = () => this.props.location.pathname === '/' ? this.setState({ HeaderSmall: false }) : this.setState({ HeaderSmall: true })
+    headerToggle = () => this.props.location.pathname === '/' ? this.setState({ HeaderSmall: false }) : this.setState({ HeaderSmall: true })
     
 
     render() {

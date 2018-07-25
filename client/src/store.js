@@ -4,6 +4,7 @@ import rootReducer from './reducers/RootReducer';
 
 const middleware = [thunk]
 
+//initializes redux store
 export default function configureStore() {
  return createStore(
   rootReducer,

@@ -25,12 +25,14 @@ class FormComp extends React.Component {
     this.props.fetchBooks()
   }
 
+  //updates book and resets form
   updateBook = (data) => {
     const { reset } = this.props;
     this.props.submitUpdate(data);
     reset();
 }
 
+//posts book and resets form
   postBook = (data) => {
     const { reset } = this.props;
     this.props.createBook(data);
@@ -91,22 +93,24 @@ class FormComp extends React.Component {
   }
 }
 
+//maps redux store to components props
 const mapStateToProps = state => ({
   ...state
  })
- 
+ //maps actions to component props
  const mapDispatchToProps = dispatch => ({
   fetchBooks: () => dispatch(fetchBooks()),
   createBook: (data) => dispatch(createBook(data)),
   submitUpdate: (data) => dispatch(submitUpdate(data))
  })
 
+//connects form to redux store/actions
 FormComp = connect(
   mapStateToProps,
   mapDispatchToProps
 )(FormComp);
 
-  
+  //reduxForm creates Form State for the redux store.
  export default reduxForm({
-  form: 'book', // a unique identifier for this form
+  form: 'book', 
 })(FormComp); 

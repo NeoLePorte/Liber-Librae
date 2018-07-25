@@ -5,6 +5,10 @@ const initialState = {
   item: {},
 }
 
+
+//BookReducer is where the redux store state is.
+// Actions come in and the BookReducer handles state changes.
+//**the state for the form is handled in the RootReducer**
 export default (state = initialState, action) => {
     switch (action.type) {
      case BOOK_FETCH:
