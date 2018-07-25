@@ -27,7 +27,6 @@ class MobileContainer extends Component {
   render() {
     const { children } = this.props
     const { sidebarOpened } = this.state
-
     return (
       <Responsive {...Responsive.onlyMobile}>
         <Sidebar.Pushable>
@@ -54,7 +53,6 @@ class MobileContainer extends Component {
               </Container>
               <HomepageHeading mobile />
             </Segment>
-
             {children}
           </Sidebar.Pusher>
         </Sidebar.Pushable>

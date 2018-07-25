@@ -4,22 +4,23 @@ import { connect } from 'react-redux'
 import { fetchBooks, deleteBook, updateBook } from '../actions/BookActions'
 import propTypes from 'prop-types'
 import { Button,Transition, List, Header, Divider } from 'semantic-ui-react';
+import { NavLink } from 'react-router-dom'
 
 
 class BookList extends React.Component {
-  constructor(props) {
-    super(props)
-  }
-
-  componentWillMount() {
+  componentDidMount() {
     this.props.fetchBooks();
   }
- 
+
+  onDelete = (id) => {
+    this.props.deleteBook(id)
+    //TODO: create action to clear form on delete to prevent updating deleted item.
+  }
     render() {
     return (
       <React.Fragment>
         <Header as='h2' content="Book List" textAlign="center" dividing />
-        <div style={{ overflowY: 'scroll', height: '400px'}}>
+        <div style={{ overflowY: 'scroll', height: '490px'}}>
           <Transition.Group
           as={List}
           duration={500}
@@ -28,7 +29,6 @@ class BookList extends React.Component {
           verticalAlign='middle'
           animation='fade'
           >
-          
             {this.props.books.items.map((book, i) => (
               <List.Item key={i}>
                 <Book 
@@ -42,8 +42,9 @@ class BookList extends React.Component {
                 <br></br>
                 <Button.Group>
                   <Button primary compact  onClick={() => {this.props.updateBook(book)}}>update</Button>
-                  <Button secondary compact  onClick={() => {this.props.deleteBook(book._id)}}>delete</Button>
+                  <Button secondary compact  onClick={() => {this.onDelete(book._id)}}>delete</Button>
                 </Button.Group>
+                <Button as={NavLink} to={`/book-info/${book.title}`} primary compact floated='right'>More Info</Button>
                 </List.Item>
             ))};
           </Transition.Group>

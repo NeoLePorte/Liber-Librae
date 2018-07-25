@@ -10,7 +10,6 @@ export default combineReducers({
       switch(action.type) {
         case BOOK_UPDATE:
         const { title, author, description, isbn, updateId } = action;
-        console.log(updateId)
         return {
           ...state,
             values: {

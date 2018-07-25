@@ -1,12 +1,8 @@
-import { BOOK_FETCH , POST_ERROR, BOOK_DELETE, BOOK_UPDATE } from '../actions/types'
-import { formValueSelector } from 'redux-form'
-
-
+import { BOOK_FETCH , POST_ERROR, BOOK_DELETE, GET_SINGLE_BOOK } from '../actions/types'
 
 const initialState = {
   items: [],
   item: {},
-  open: false
 }
 
 export default (state = initialState, action) => {
@@ -31,21 +27,13 @@ export default (state = initialState, action) => {
       return {
         ...state,
       };
-      // case BOOK_UPDATE:
-      // const updateId = action.payload;
-      // const updateItem = state.items.findIndex(c => c._id === updateId);
-      // const selector = formValueSelector('book')
-      // const values = selector(state, 'title', 'author', 'description', 'isbn')
-      // console.log(values)
-      //   // state.form.book.values = {
-      //   // title: updateItem.title, 
-      //   // author: updateItem.author,
-      //   // description: updateItem.description, 
-      //   // isbn: updateItem.isbn, 
-      //   // }
-      // return {
-      //   ...state,
-      // };
+      case GET_SINGLE_BOOK:
+      const singleBookId = action.payload;
+      const singleBook = state.items.find(c => c.title === singleBookId);
+      return {
+        ...state,
+        item: singleBook
+      };
      default:
       return state
     }

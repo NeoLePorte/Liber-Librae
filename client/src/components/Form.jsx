@@ -2,21 +2,16 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Field, reduxForm, Form as rForm} from 'redux-form';
 import { fetchBooks, createBook, submitUpdate } from '../actions/BookActions'
-import { Button, Form, Segment } from 'semantic-ui-react'
-
-
+import { Button, Form, Segment, Header } from 'semantic-ui-react'
 
 class FormComp extends React.Component {
-  constructor(props) {
-    super(props)
-  }
   // TODO: make this work so the component lifecycle is used properly
-  componentDidUpdate(prevProps) {
-    if (this.props.books.items.filter !== prevProps.books.items.filter) {
-      console.log('this is filtering prevProps!')
-      this.props.fetchBooks()
-    }
-  }
+  // componentDidUpdate(prevProps) {
+  //   if (this.props.books.items.filter !== prevProps.books.items.filter) {
+  //     console.log('this is filtering prevProps!')
+  //     this.props.fetchBooks()
+  //   }
+  // }
 
   //submit book handler
   submitBook = (data) => {
@@ -46,6 +41,7 @@ class FormComp extends React.Component {
     const { handleSubmit, pristine, submitting } = this.props;
     return (
         <Form as={rForm} onSubmit={handleSubmit(data => this.submitBook(data))}>
+        <Header as='h2' content="Enter Book Info" textAlign="center" dividing />
         <Segment>
         <Form.Field required>
         <label>Title</label>

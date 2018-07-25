@@ -1,5 +1,4 @@
-import { BOOK_FETCH, POST_ERROR, BOOK_DELETE, BOOK_UPDATE } from './types'
-import { change } from 'redux-form'
+import { BOOK_FETCH, POST_ERROR, BOOK_DELETE, BOOK_UPDATE, GET_SINGLE_BOOK } from './types'
 
 export const fetchBooks = () => dispatch => {
     fetch('/api/books/')
@@ -50,10 +49,7 @@ export const updateBook = (book) => dispatch => {
       isbn: book.isbn
     });
   }
-  
-  //TODO figure out how to access the form store to change form values
 
-//TODO get update books working
 export const submitUpdate = (data) => dispatch => {
     const { title, author, description, isbn, updateId } = data;
     fetch(`/api/books/${updateId}`, { 
@@ -71,3 +67,9 @@ export const submitUpdate = (data) => dispatch => {
     });
   }
 
+  export const getSingleBook = (id) =>   dispatch => {
+      dispatch({
+        type: GET_SINGLE_BOOK,
+        payload: id
+      })
+  }

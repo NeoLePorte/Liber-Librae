@@ -38,12 +38,15 @@ router.post('/books', (req, res) => {
   });
 });
 
+
+//updates book info
 router.put('/books/:bookId', (req, res) => {
   console.log(req.params);
   const { bookId } = req.params;
   if (!bookId) {
     return res.json({ success: false, error: 'No Book id provided' });
   }
+  //TODO: fix validation to prevent updating deleted book.
   Book.findById(bookId, (error, book) => {
     if (error) return res.json({ success: false, error });
     const { title, author, description, isbn } = req.body;
