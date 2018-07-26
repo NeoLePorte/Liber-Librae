@@ -10,3 +10,5 @@ cd into client |
 npm install |
 cd .. |
 npm run start:dev |
+
+Warning in console is related to https://github.com/Semantic-Org/Semantic-UI-React/pull/2306
