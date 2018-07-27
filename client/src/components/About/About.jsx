@@ -27,7 +27,7 @@ class About extends Component {
         <ResponsiveContainer>
             <Container className="about-text" text>
               <Header as='h2'>About</Header>
-              <p>This is a app designed to let the user speak in gifs and share with friends</p>
+              <p>Swine kevin landjaeger picanha. Shankle chicken swine kielbasa pork chop picanha brisket short ribs sirloin kevin landjaeger bresaola. Tenderloin turkey bacon ribeye boudin pork chop chicken pork belly biltong tongue, turducken short loin t-bone. Ball tip chuck pork chop prosciutto short ribs ribeye alcatra jowl fatback chicken. Cupim t-bone chicken corned beef meatloaf. Meatball shank beef ribs andouille beef drumstick prosciutto brisket picanha cupim frankfurter pig pastrami bresaola.</p>
             </Container>
         </ResponsiveContainer>
       )
